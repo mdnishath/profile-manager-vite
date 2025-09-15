@@ -1,0 +1,58 @@
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Vite cache
+.vite/
+.cache/
+
+# Build outputs
+dist/
+dist-electron/
+out/
+release/
+*.local
+
+# Electron builder outputs
+dist/*.exe
+dist/*.dmg
+dist/*.AppImage
+dist/win-unpacked/
+dist/mac/
+dist/linux/
+
+# User data (don’t put runtime profiles in git)
+profiles/
+profiles.json
+
+# Temp + OS
+.DS_Store
+Thumbs.db
+*.swp
+.tmp/
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Optional lock files (choose one if you prefer to keep clean)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

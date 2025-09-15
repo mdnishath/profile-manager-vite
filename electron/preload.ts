@@ -1,0 +1,14 @@
+import { contextBridge, ipcRenderer } from "electron";
+
+contextBridge.exposeInMainWorld("api", {
+  loadProfiles: () => ipcRenderer.invoke("load-profiles"),
+  saveProfiles: (profiles: any[]) =>
+    ipcRenderer.invoke("save-profiles", profiles),
+  launchProfile: (profile: any) =>
+    ipcRenderer.invoke("launch-profile", profile),
+  stopProfile: (profile: any) => ipcRenderer.invoke("stop-profile", profile),
+  removeProfile: (profile: any) =>
+    ipcRenderer.invoke("remove-profile", profile),
+  onProfileStopped: (callback: (name: string) => void) =>
+    ipcRenderer.on("profile-stopped", (_e, name) => callback(name)),
+});

@@ -1,0 +1,55 @@
+{
+  "name": "profile-manager-vite",
+  "version": "1.0.0",
+  "description": "Electron + Vite + React + Tailwind + TypeScript Starter",
+  "author": "Your Name",
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev": "concurrently \"vite\" \"tsc -p tsconfig.electron.json --watch\" \"wait-on http://localhost:5173 && electron ./dist-electron/main.js\"",
+    "build:react": "vite build",
+    "build:electron": "tsc -p tsconfig.electron.json",
+    "dist": "npm run build:react && npm run build:electron && electron-builder"
+  },
+  "build": {
+    "appId": "com.profile.manager",
+    "productName": "Profile Manager",
+    "directories": {
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.13",
+    "@types/rimraf": "^3.0.2",
+    "autoprefixer": "^10.4.21",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "electron": "^31.0.0",
+    "electron-builder": "^26.0.12",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.3.3",
+    "vite": "^7.1.5",
+    "wait-on": "^7.2.0"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^5.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^5.0.0"
+  }
+}
