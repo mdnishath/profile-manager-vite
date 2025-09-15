@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [profiles, setProfiles] = useState<Profile[]>([]);
+  const [testingId, setTestingId] = useState<string | null>(null);
 
   useEffect(() => {
     window.api.loadProfiles().then(setProfiles);
@@ -85,6 +86,33 @@ function App() {
             >
               💾 Save All
             </button>
+            <button
+              onClick={async () => {
+                const res = await window.api.backupProfiles();
+                if (res.ok) {
+                  alert(`✅ Backup saved to ${res.filePath}`);
+                } else {
+                  alert(`❌ Backup failed: ${res.error}`);
+                }
+              }}
+              className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg shadow transition"
+            >
+              📦 Backup
+            </button>
+            <button
+              onClick={async () => {
+                const res = await window.api.restoreProfiles();
+                if (res.ok) {
+                  alert("✅ Profiles restored. Restart the app to apply.");
+                  window.location.reload();
+                } else {
+                  alert(`❌ Restore failed: ${res.error}`);
+                }
+              }}
+              className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg shadow transition"
+            >
+              ♻ Restore
+            </button>
           </div>
         </div>
 
@@ -160,11 +188,39 @@ function App() {
                     >
                       {p.running ? "Stop" : "Launch"}
                     </button>
+
                     <button
                       onClick={() => removeProfile(p)}
                       className="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded transition"
                     >
                       Remove
+                    </button>
+
+                    <button
+                      onClick={async () => {
+                        if (!p.proxy) {
+                          alert("No proxy set for this profile.");
+                          return;
+                        }
+                        setTestingId(p.id);
+                        const res = await window.api.testProxy({
+                          proxy: p.proxy,
+                          type: p.type,
+                        });
+                        setTestingId(null);
+                        if (res.ok) {
+                          alert(`✅ Proxy OK
+IP: ${res.ip}
+${res.city ?? ""} ${res.region ?? ""} ${res.country ?? ""}
+${res.org ?? ""}`);
+                        } else {
+                          alert(`❌ Proxy failed: ${res.error}`);
+                        }
+                      }}
+                      disabled={testingId === p.id}
+                      className="bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60 text-white px-3 py-1 rounded transition"
+                    >
+                      {testingId === p.id ? "Testing..." : "Test"}
                     </button>
                   </td>
                 </tr>
