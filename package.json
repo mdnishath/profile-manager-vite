@@ -50,6 +50,7 @@
     "@vitejs/plugin-react": "^5.0.2",
     "archiver": "^7.0.1",
     "core-util-is": "^1.0.3",
+    "extract-zip": "^2.0.1",
     "glob": "^10.4.5",
     "https-proxy-agent": "^7.0.6",
     "react": "^18.2.0",

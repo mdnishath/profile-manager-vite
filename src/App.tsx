@@ -90,28 +90,28 @@ function App() {
               onClick={async () => {
                 const res = await window.api.backupProfiles();
                 if (res.ok) {
-                  alert(`✅ Backup saved to ${res.filePath}`);
+                  alert(`✅ Backup saved at: ${res.filePath}`);
                 } else {
                   alert(`❌ Backup failed: ${res.error}`);
                 }
               }}
-              className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg shadow transition"
+              className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg shadow"
             >
               📦 Backup
             </button>
+
             <button
               onClick={async () => {
                 const res = await window.api.restoreProfiles();
                 if (res.ok) {
-                  alert("✅ Profiles restored. Restart the app to apply.");
-                  window.location.reload();
+                  alert("✅ Restore complete! Please reload the app.");
                 } else {
                   alert(`❌ Restore failed: ${res.error}`);
                 }
               }}
-              className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg shadow transition"
+              className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg shadow"
             >
-              ♻ Restore
+              🔄 Restore
             </button>
           </div>
         </div>
@@ -123,6 +123,7 @@ function App() {
               <tr>
                 <th className="p-3 text-left">Status</th>
                 <th className="p-3 text-left">Name</th>
+                {/* <th className="p-3 text-left">Path</th> ✅ New column */}
                 <th className="p-3 text-left">Proxy</th>
                 <th className="p-3 text-left">Type</th>
                 <th className="p-3 text-left">Actions</th>
@@ -151,6 +152,12 @@ function App() {
                       className="border rounded px-2 py-1 w-full dark:bg-zinc-900 dark:border-zinc-600"
                     />
                   </td>
+                  {/* ✅ Path */}
+                  {/* <td className="p-3">
+                    <span className="text-xs text-gray-600 dark:text-gray-400">
+                      {p.path}
+                    </span>
+                  </td> */}
 
                   {/* Proxy */}
                   <td className="p-3">
